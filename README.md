@@ -1,3 +1,3 @@
-# Template app.
+# Composer-catalog
 
-template. [Документация](docs/README.md)
+Каталог версий для сервиса composer. [Документация](docs/README.md)

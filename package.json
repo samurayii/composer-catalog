@@ -1,9 +1,9 @@
 {
-    "name": "template",
+    "name": "composer-catalog",
     "version": "0.0.1",
-    "description": "Template for nodejs app with typescript",
+    "description": "Catalog for composer",
     "main": "app.js",
-    "docker_image": "samuray/app-template",
+    "docker_image": "samuray/composer-catalog",
     "scripts": {
         "up": "ncu && ncu -u && rimraf ./package-lock.json && npm i",
         "ncu": "ncu",
@@ -26,18 +26,21 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/samurayii/template-project-ts.git"
+        "url": "git+https://github.com/samurayii/composer-catalog.git"
     },
     "keywords": [
-        "templates",
-        "typescript"
+        "docker",
+        "docker-composer",
+        "composer",
+        "updater",
+        "catalog"
     ],
     "author": "Nuzhnov A.A.",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/samurayii/template-project-ts/issues"
+        "url": "https://github.com/samurayii/composer-catalog/issues"
     },
-    "homepage": "https://github.com/samurayii/template-project-ts.git#readme",
+    "homepage": "https://github.com/samurayii/composer-catalog.git#readme",
     "devDependencies": {
         "@types/chai": "^4.2.15",
         "@types/chai-http": "^4.2.0",

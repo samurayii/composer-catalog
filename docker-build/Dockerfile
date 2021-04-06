@@ -1,10 +1,11 @@
 FROM ubuntu:18.04
 
-ENV APP_NAME "app-template"
+ENV APP_NAME "composer-catalog"
+ENV NODE_VERSION "14"
 
 RUN apt-get update && \
     apt-get install -y curl bash && \
-    curl -sL https://deb.nodesource.com/setup_12.x | bash && \
+    curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get install -y nodejs && \
     node -v && \
     apt-get clean && \
@@ -27,5 +28,5 @@ COPY app /${APP_NAME}
 COPY config.toml /${APP_NAME}/config.toml
 
 RUN cd /${APP_NAME} && \
-    npm install --only=production && \
+    npm ci && \
     node app.js -v
