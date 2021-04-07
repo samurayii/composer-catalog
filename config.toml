@@ -9,5 +9,9 @@
 
 [api]
     enable = true
-    auth = true
+    auth = false
     env = "development"
+
+[catalog]
+    path = "catalog"
+    update_interval = 10

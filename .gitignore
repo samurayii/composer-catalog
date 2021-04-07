@@ -11,3 +11,5 @@ docker-build/app
 docker-build/package.json
 !docker-build/config.toml
 run.txt
+catalog
+!src/lib/catalog

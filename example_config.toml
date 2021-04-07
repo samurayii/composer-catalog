@@ -35,3 +35,7 @@
         urlencoded = true               # парсинг данных urlencoded
         json_strict = true              # строгий режим парсинга json
         methods = ["POST"]              # список методов для парсинга
+
+[catalog]                   # настройка каталога
+    path = "catalog"        # папка для данных
+    update_interval = 30    # интервал обновление каталога в секундах 

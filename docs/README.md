@@ -2,7 +2,7 @@
 
 ## Информация
 
-template. 
+Каталог версий для сервиса composer.
 
 ## Оглавление
 
@@ -29,10 +29,11 @@ template.
 
 ### Секции файла конфигурации
 
-- **logger** - настрока логгера (переменная среды: COMPOSER_CATALOG_LOGGER)
-- **authorization** - настрока авторизации (переменная среды: COMPOSER_CATALOG_AUTHORIZATION)
+- **logger** - настройка логгера (переменная среды: COMPOSER_CATALOG_LOGGER)
+- **authorization** - настройка авторизации (переменная среды: COMPOSER_CATALOG_AUTHORIZATION)
 - **api** - настройка API (переменная среды: COMPOSER_CATALOG_API)
 - **api.parsing** - настройка парсинга (пакет: https://github.com/dlau/koa-body#readme, переменная среды: COMPOSER_CATALOG_API_PARSING)
+- **catalog** - настройка каталога (переменная среды: COMPOSER_CATALOG_CATALOG)
 
 ### Пример файла конфигурации config.toml
 
@@ -43,7 +44,7 @@ template.
     timestamp = false   # выводить время лога (true или false)
     type = true         # выводить тип лога (true или false)
 
-[authorization]                     # настрока авторизации
+[authorization]                     # настройка авторизации
     [[authorization.users]]         # массив пользователей
         username = "username"       # имя пользователя
         password = "password"       # пароль пользователя
@@ -75,6 +76,9 @@ template.
         json_strict = true              # строгий режим парсинга json
         methods = ["POST"]              # список методов для парсинга
 
+[catalog]                   # настройка каталога
+    path = "catalog"        # папка для данных
+    update_interval = 30    # интервал обновление каталога в секундах 
 ```
 
 ### Таблица параметров конфигурации
@@ -108,6 +112,8 @@ template.
 | api.parsing.urlencoded | логический | true | парсинг данных urlencoded |
 | api.parsing.json_strict | логический | true | строгий режим парсинга json |
 | api.parsing.methods | строка[] | ["POST"] | список методов для парсинга POST, PUT и/или PATCH |
+| catalog.path | строка | catalog | папка для данных |
+| catalog.update_interval | число | 30 | интервал обновление каталога в секундах |
 
 ### Настройка через переменные среды
 
