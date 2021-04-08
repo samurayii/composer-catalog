@@ -63,7 +63,7 @@ export class CatalogNode implements ICatalogNode {
             path: package_path
         };
 
-        this._logger.log(`[Catalog] Package version ${chalk.gray(new_version)} updated/added`, "dev");
+        this._logger.log(`[Catalog] Package version ${chalk.gray(new_version)} updated/added to ${chalk.gray(this._id)} node`, "dev");
 
         if (this._versions_list["latest"] === undefined) {
             this._versions_list["latest"] = {
@@ -84,7 +84,7 @@ export class CatalogNode implements ICatalogNode {
             path: package_path
         };
 
-        this._logger.log(`[Catalog] Defined ${chalk.gray("latest")} version from ${chalk.gray(new_version)} package`, "dev");
+        this._logger.log(`[Catalog] Defined ${chalk.gray("latest")} version from ${chalk.gray(new_version)} package of ${chalk.gray(this._id)} node`, "dev");
 
     }
 

@@ -1,6 +1,6 @@
 {
     "name": "composer-catalog",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Catalog for composer",
     "main": "app.js",
     "docker_image": "samuray/composer-catalog",

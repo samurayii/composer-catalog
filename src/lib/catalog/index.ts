@@ -86,7 +86,7 @@ export class Catalog implements ICatalog {
                 return;
             }
 
-            const id = path.dirname(relative_path.replace(/\.(yml|yaml)$/i, ""));
+            const id = path.dirname(relative_path.replace(/\.(yml|yaml)$/i, "").replace(/\\/ig,"/"));
             
             if (id === "" || id === "." || typeof id !== "string") {
                 this._logger.warn(`[Catalog] Package version ${chalk.yellow(package_config["x-package"].version)} doesn't have ID`);

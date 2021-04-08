@@ -17,8 +17,8 @@
 | /healthcheck/status | GET | 200 | получить статус здоровья | [пример](#v1_status) |
 | /v1/packages | GET | 200 | получить список пакетов | [пример](#v1_packages) |
 | /v1/package/${id} | GET | 200 | получить информацию о пакете по ключу | [пример](#v1_packages_id) |
-| /v1/package/${id}/${version} | GET | 200 | получить версию по ключу | [пример](#v1_packages_id_version) |
-| /v1/package/${id}/${version}/raw | GET | 200 | получить версию raw по ключу | [пример](#v1_packages_id_version_raw) |
+| /v1/package/${id}/version/${version} | GET | 200 | получить версию по ключу | [пример](#v1_packages_id_version) |
+| /v1/package/${id}/version/${version}?raw=true | GET | 200 | получить версию raw по ключу | [пример](#v1_packages_id_version_raw) |
 
 ## Примеры ответов/запросов
 
@@ -86,7 +86,7 @@
 }
 ```
 
-### <a name="v1_packages_id_version"></a> Получить версию по ключу: /v1/package/${id}/${version}
+### <a name="v1_packages_id_version"></a> Получить версию по ключу: /v1/package/${id}/version/${version}
 
 ```js
 {
@@ -95,7 +95,7 @@
 }
 ```
 
-### <a name="v1_packages_id_version_raw"></a> Получить версию raw по ключу: /v1/package/${id}/${version}/raw
+### <a name="v1_packages_id_version_raw"></a> Получить версию raw по ключу: /v1/package/${id}/version/${version}?raw=true
 
 ```yaml
 version: "3.9"
