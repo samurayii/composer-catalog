@@ -65,7 +65,7 @@ export class Healthcheck implements IMiddleware {
             if (ctx.url === "/healthcheck/status" || ctx.url === `${config.prefix}/healthcheck/status`) {
                 ctx.body = {
                     Healthy: true,
-                    Status: status,
+                    Status: "Healthy",
                     Uptime: Math.floor((Date.now() - this._start_time)/1000),
                     Human_uptime: this._getTextTime(Math.floor((Date.now() - this._start_time)/1000)),
                     Entries: {}
