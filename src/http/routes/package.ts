@@ -24,7 +24,9 @@ export class ApiPackage {
         const version = ctx.params.version;
         const raw_flag = ctx.query.raw;
 
-        if (this._catalog.existNode(id) === false) {
+        const node = this._catalog.getNode(id);
+
+        if (node === undefined) {
             ctx.body = { 
                 status: "fail",
                 message: `Node "${id}" not found`
@@ -32,8 +34,6 @@ export class ApiPackage {
             ctx.status = 200;
             return;
         }
-
-        const node = this._catalog.getNode(id);
 
         if (node.existPackage(version) === false) {
             ctx.body = { 

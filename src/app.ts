@@ -4,17 +4,17 @@ import { Singleton } from "di-ts-decorators";
 import { KoaD } from "koa-ts-decorators";
 import { Authorization } from "./lib/authorization";
 import * as chalk from "chalk";
-import { Watcher } from "./lib/watcher";
 import { Catalog } from "./lib/catalog";
-
-//console.log(JSON.stringify(config, null, 4));
 
 import "./http";
 
 const logger = new Logger(config.logger);
+
+logger.log("CONFIG:", "debug");
+logger.log(JSON.stringify(config, null, 4), "debug");
+
 const authorization = new Authorization(config.authorization);
-const watcher = new Watcher(config.catalog, logger);
-const catalog = new Catalog(watcher, logger);
+const catalog = new Catalog(config.catalog, logger);
 
 Singleton("config", config);
 Singleton(Logger.name, logger);
@@ -28,7 +28,7 @@ const bootstrap = async () => {
 
         api_server.context.authorization = authorization;
 
-        watcher.run();
+        await catalog.run();
 
         await api_server.listen( () => {
             logger.info(`[api-server] listening on network interface ${chalk.gray(`${api_server.config.listening}${api_server.prefix}`)}`);
@@ -46,6 +46,6 @@ bootstrap();
 
 process.on("SIGTERM", async () => {
     logger.log("Termination signal received");
-    await watcher.stop();
+    await catalog.stop();
     process.exit();
 });

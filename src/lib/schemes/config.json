@@ -262,11 +262,18 @@
                     "default": 30,
                     "env": "COMPOSER_CATALOG_CATALOG_UPDATE_INTERVAL",
                     "minimum": 0
+                },
+                "subtree_package": {
+                    "type": "boolean",
+                    "default": false,
+                    "env": "COMPOSER_CATALOG_CATALOG_SUBTREE_PACKAGE",
+                    "enum": [true, false]
                 }
             },
             "required": [
                 "path",
-                "update_interval"
+                "update_interval",
+                "subtree_package"
             ]
         }
     },

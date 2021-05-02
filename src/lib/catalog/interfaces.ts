@@ -14,6 +14,8 @@ export interface ICatalogNode {
 
 export interface ICatalog {
     readonly nodes: string[]
+    run: () => Promise<void>
+    stop: () => Promise<void>
     existNode: (id_node: string) => boolean
     getNode: (id_node: string) => ICatalogNode
 }
@@ -42,4 +44,10 @@ export interface IPackage {
 
 export interface IHealthcheckConfig {
     type: string
+}
+
+export interface ICatalogConfig {
+    path: string
+    update_interval: number
+    subtree_package: boolean
 }

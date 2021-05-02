@@ -5,8 +5,8 @@ import Ajv from "ajv";
 import jtomler from "jtomler";
 import * as package_schema from "./lib/package_schema.json";
 import * as healthcheck_http_schema from "./lib/healthcheck-http.json";
-import { IWatcher } from "../watcher";
-import { ICatalog, ICatalogNode, IPackage } from "./interfaces";
+import { IWatcher, Watcher } from "../watcher";
+import { ICatalog, ICatalogConfig, ICatalogNode, IPackage } from "./interfaces";
 import { ILogger } from "logger-flx";
 import { CatalogNode } from "./lib/catalog-node";
 
@@ -14,16 +14,23 @@ export * from "./interfaces";
 
 export class Catalog implements ICatalog {
 
+    private readonly _watcher: IWatcher
+
     private readonly _nodes_list: {
         [key: string]: ICatalogNode
     }
 
     constructor (
-        private readonly _watcher: IWatcher,
+        private readonly _config: ICatalogConfig,
         private readonly _logger: ILogger
     ) {
 
         this._nodes_list = {};
+
+        this._watcher = new Watcher({
+            path: this._config.path,
+            update_interval: this._config.update_interval
+        }, this._logger);
 
         this._watcher.on("file", (file_path: string, relative_path: string) => {
             this._load(file_path, relative_path);
@@ -119,7 +126,40 @@ export class Catalog implements ICatalog {
     }
 
     getNode (id_node: string): ICatalogNode {
+
+        if (this._nodes_list[id_node] === undefined && this._config.subtree_package === true) {
+            return this._getSubNode(id_node);
+        }
+
         return this._nodes_list[id_node];
+    }
+
+    private _getSubNode (id_node: string): ICatalogNode {
+
+        if (id_node === "") {
+            return;
+        }
+
+        const arg_id = id_node.split("/");
+
+        arg_id.splice(arg_id.length-1, 1);
+
+        const sub_id = arg_id.join("/");
+
+        if (this.existNode(sub_id) === true) {
+            return this.getNode(sub_id);
+        }
+
+        return this._getSubNode(sub_id);
+
+    }
+
+    async run (): Promise<void> {
+        await this._watcher.run();
+    }
+
+    async stop (): Promise<void> {
+        await this._watcher.stop();
     }
 
 }

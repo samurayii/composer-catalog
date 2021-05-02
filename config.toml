@@ -15,3 +15,4 @@
 [catalog]
     path = "catalog"
     update_interval = 10
+    subtree_package = true
