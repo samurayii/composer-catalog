@@ -43,7 +43,7 @@ if (pkg === undefined) {
     process.exit(1);
 }
 
-program.version(`version: ${pkg.version}`, "-v, --version", "output the current version.");
+program.version(`${<string>pkg.name} version: ${pkg.version}`, "-v, --version", "output the current version.");
 program.name(<string>pkg.name);
 program.option("-c, --config <type>", "Path to config file.");
 

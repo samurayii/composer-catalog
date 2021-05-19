@@ -24,12 +24,6 @@ export interface IPackage {
     version: string
     "x-package": {
         version: string
-        timestamp: number
-        deploy: {
-            type: string
-            "force-recreate": boolean
-            rollback: boolean
-        }
     }
     services: {
         [key: string]: {

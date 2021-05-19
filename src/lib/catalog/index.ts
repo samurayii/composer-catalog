@@ -4,7 +4,6 @@ import * as path from "path";
 import Ajv from "ajv";
 import jtomler from "jtomler";
 import * as package_schema from "./lib/package_schema.json";
-import * as healthcheck_http_schema from "./lib/healthcheck-http.json";
 import { IWatcher, Watcher } from "../watcher";
 import { ICatalog, ICatalogConfig, ICatalogNode, IPackage } from "./interfaces";
 import { ILogger } from "logger-flx";
@@ -48,44 +47,6 @@ export class Catalog implements ICatalog {
     
             const body = await fs.promises.readFile(file_path);
             const package_config: IPackage = <IPackage>jtomler(body.toString(), false);
-
-            for (const service_name in package_config.services) {
-
-                const service = package_config.services[service_name];
-
-                if (service["x-healthcheck"] !== undefined) {
-
-                    const healthcheck = service["x-healthcheck"];
-
-                    if (healthcheck.type === undefined) {
-                        this._logger.warn(`[Catalog] Package parsing error. Healthcheck does not contain ${chalk.red("type")} key`);
-                        return;
-                    }
-
-                    const ajv_healthcheck = new Ajv({
-                        strict: false
-                    });
-
-                    let validate_healthcheck;
-
-                    if (healthcheck.type === "http") {
-                        validate_healthcheck = ajv_healthcheck.compile(healthcheck_http_schema);
-                    }
-
-                    if (validate_healthcheck === undefined) {
-                        this._logger.warn(`[Catalog] Package parsing error. Healthcheck type ${chalk.red(healthcheck.type)} not support`);
-                        return;
-                    }
-
-                    if (validate_healthcheck(healthcheck) === false) {
-                        this._logger.warn(`[Catalog] Package parsing error. Schema errors:\n${JSON.stringify(validate_healthcheck.errors, null, 2)}`);
-                        return;
-                    }
-
-                }
-
-            }
-
             const validate = ajv.compile(package_schema);
                     
             if (validate(package_config) === false) {
